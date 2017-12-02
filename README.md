@@ -9,7 +9,7 @@ The project is done using Python 3.6 with the following dependencies:
 # Genetic Algorithm
 
 A genetic algorithm is a search heuristic that is inspired by Charles Darwin’s theory of natural evolution. This algorithm reflects the process of natural selection where the fittest individuals are selected for reproduction in order to produce offspring of the next generation.
-
+<img src="https://github.com/androfly/Smart-Maze/blob/master/Images/img1.png" alt="Genetic Algorithm" style="width:200px;height:50px;"></img>
 ## Notion of Natural Selection
 
 The process of natural selection starts with the selection of fittest individuals from a population. They produce offspring which inherit the characteristics of the parents and will be added to the next generation. If parents have better fitness, their offspring will be better than parents and have a better chance at surviving. This process keeps on iterating and at the end, a generation with the fittest individuals will be found.
@@ -25,7 +25,7 @@ The process begins with a set of individuals which is called a Population. Each 
 An individual is characterized by a set of parameters (variables) known as Genes. Genes are joined into a string to form a Chromosome (solution).
 In a genetic algorithm, the set of genes of an individual is represented using a string, in terms of an alphabet. Usually, binary values are used (string of 1s and 0s). We say that we encode the genes in a chromosome.
 
-<img src="https://github.com/androfly/Smart-Maze/blob/master/Images/img1.png" alt="Genetic Algorithm" style="width:200px;height:50px;"></img>
+<img src="https://github.com/androfly/Smart-Maze/blob/master/Images/img2.png" alt="Genetic Algorithm" style="width:200px;height:50px;"></img>
 
 ## Fitness Function
 The fitness function determines how fit an individual is (the ability of an individual to compete with other individuals). It gives a fitness score to each individual. The probability that an individual will be selected for reproduction is based on its fitness score.
