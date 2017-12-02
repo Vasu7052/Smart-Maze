@@ -17,8 +17,12 @@ FPS = 500
 
 class Genetic:
 
-    def __init__(self, loc_x, loc_y, population_size=100, mutation_rate=0.1, obstacles=[]):
+    def __init__(self, title, width, height, iteratons , loc_x, loc_y, population_size=100, mutation_rate=0.1, obstacles=[]):
         # initialize all variables
+        self.title = title
+        self.width = width
+        self.height = height
+        self.iteratons = iteratons
         self.target_location = Vector(loc_x, loc_y)
         self.population_size = population_size
         self.mutation_rate = mutation_rate
@@ -67,12 +71,12 @@ class Genetic:
         self.best_child = new_list[len(new_list)-1][1]
 
 
-    def simulate_with_graphics(self, title="Maze", width=800, height=600, iteratons=300):
+    def simulate_with_graphics(self):
 
         # initialize pygame
         pygame.init()
-        game_display = pygame.display.set_mode((width, height))
-        pygame.display.set_caption(title)
+        game_display = pygame.display.set_mode((self.width, self.height))
+        pygame.display.set_caption(self.title)
 
         # get the clock module for handling FPS
         clock = pygame.time.Clock()
@@ -87,7 +91,7 @@ class Genetic:
         iter_cnt = 0
 
         # start the main loop
-        while not game_exit and iter_cnt < iteratons:
+        while not game_exit and iter_cnt < self.iteratons:
 
             # handle input events
             for event in pygame.event.get():
@@ -146,7 +150,7 @@ class Genetic:
             # display iteration number to the screen
             label = font.render("Generation: " + str(iter_cnt+1), 1, (0, 0, 0))
             game_display.blit(label, (10, 512))
-            label = font.render("Max Fitness: " + str(self.best_child.fitness(self.target_location)), 1, (0, 0, 0))
+            label = font.render("Best Fitness: " + str(self.best_child.fitness(self.target_location)), 1, (0, 0, 0))
             game_display.blit(label, (10, 540))
             label = font.render("Distance: " + str(self.best_child.location.dist(self.target_location)), 1, (0, 0, 0))
             game_display.blit(label, (10, 570))
