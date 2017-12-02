@@ -114,16 +114,12 @@ class Genetic:
 
             for member in self.population:
 
-                # check if rocket did not collide before
                 if member.is_alive:
 
-                    # calculate the new position for every rocket
                     member.apply_force_at(counter)
 
-                    # update the rocket's position
                     member.update()
 
-                    # check member's collision with the obstacles
                     for obs in self.obstacles:
                         if obs[0] <= member.location.x <= obs[0]+obs[2] and obs[1] <= member.location.y <= obs[1]+obs[3]:
                             member.is_alive = False
@@ -131,23 +127,18 @@ class Genetic:
                     if member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600 :
                             member.is_alive = False
 
-
-                # display the rockets
                 pygame.draw.circle(game_display, green, member.location.tuple_int(),10 )
 
             counter += 1
 
-            # display the target position
             pygame.draw.circle(game_display, RED, self.target_location.tuple_int(), 25)
             font = pygame.font.SysFont("monospace", 20)
             label = font.render("Target", 1, (0, 0, 0))
             game_display.blit(label, (67, 125))
 
-            # draw the obstacles
             for obs in self.obstacles:
                 pygame.draw.rect(game_display, blue, obs)
 
-            # display iteration number to the screen
             label = font.render("Generation: " + str(iter_cnt+1), 1, (0, 0, 0))
             game_display.blit(label, (10, 512))
             label = font.render("Best Fitness: " + str(self.best_child.fitness(self.target_location)), 1, (0, 0, 0))
@@ -155,16 +146,12 @@ class Genetic:
             label = font.render("Distance: " + str(self.best_child.location.dist(self.target_location)), 1, (0, 0, 0))
             game_display.blit(label, (10, 570))
 
-            # update the display
             pygame.display.update()
 
-            # sleep the mainloop for achieving the preset FPS value
             clock.tick(FPS)
 
-        # print statistics for the best child when the main loop is finished
         self.print_stats()
 
-    # display stats for the best child
     def print_stats(self):
         print("--------------------------------")
         print("Best member from the population:")
