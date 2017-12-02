@@ -50,6 +50,7 @@ class Rocket:
 
         # this flag is set to False after the rocket did collide with an obstacle
         self.is_alive = True
+        self.is_wall = False
 
         for i in range(0, length):
             self.forces.append(Vector.random())
@@ -110,12 +111,11 @@ class Rocket:
 
     # updates the location of the rocket
     def update(self):
-
-        # update the velocity of the rocket
         self.velocity += self.acceleration
-
-        # update the location of the rocket
         self.location += self.velocity
+        self.acceleration.nul()
 
-        # the acceleration of the rocket is set to 0.0
+    def wall_update(self) :
+        self.velocity += self.acceleration
+        self.location.y += self.velocity.y
         self.acceleration.nul()

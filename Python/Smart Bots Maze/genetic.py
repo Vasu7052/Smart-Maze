@@ -67,7 +67,7 @@ class Genetic:
         self.best_child = new_list[len(new_list)-1][1]
 
 
-    def simulate_with_graphics(self, title="Rockets", width=800, height=600, iteratons=300):
+    def simulate_with_graphics(self, title="Maze", width=800, height=600, iteratons=300):
 
         # initialize pygame
         pygame.init()
@@ -95,7 +95,7 @@ class Genetic:
                     game_exit = True
 
             # clear the playground
-            game_display.fill(BLACK)
+            game_display.fill(WHITE)
 
             if counter == FPS:
 
@@ -111,42 +111,58 @@ class Genetic:
             for member in self.population:
 
                 # check if rocket did not collide before
-                if member.is_alive:
-
-                    # calculate the new position for every rocket
-                    member.apply_force_at(counter)
-
-                    # update the rocket's position
-                    member.update()
+                if member.is_alive and not member.is_wall:
 
                     # check member's collision with the obstacles
                     for obs in self.obstacles:
                         if obs[0] <= member.location.x <= obs[0]+obs[2] and obs[1] <= member.location.y <= obs[1]+obs[3]:
-                            member.is_alive = False
+                            member.is_wall = True
                         elif member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600 :
                             member.is_alive = False
+                        else:
+                            member.is_wall = False
+
+                    # calculate the new position for every rocket
+                    member.apply_force_at(counter)
+                    member.update()
+                elif member.is_alive and member.is_wall:
+                    # check member's collision with the obstacles
+                    for obs in self.obstacles:
+                        if obs[0] <= member.location.x <= obs[0] + obs[2] and obs[1] <= member.location.y <= obs[1] + \
+                                obs[3]:
+                            member.is_wall = True
+                        elif member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600:
+                            member.is_alive = False
+                        else:
+                            member.is_wall = False
+
+                    # calculate the new position for every rocket
+                    member.apply_force_at(counter)
+                    member.wall_update()
 
 
                 # display the rockets
-                pygame.draw.circle(game_display, WHITE, member.location.tuple_int(), 3)
+                pygame.draw.circle(game_display, green, member.location.tuple_int(),10 )
 
             counter += 1
 
             # display the target position
-            pygame.draw.circle(game_display, RED, self.target_location.tuple_int(), 3)
+            pygame.draw.circle(game_display, RED, self.target_location.tuple_int(), 25)
+            font = pygame.font.SysFont("monospace", 20)
+            label = font.render("Target", 1, (0, 0, 0))
+            game_display.blit(label, (67, 525))
 
             # draw the obstacles
             for obs in self.obstacles:
-                pygame.draw.rect(game_display, WHITE, obs)
+                pygame.draw.rect(game_display, blue, obs)
 
             # display iteration number to the screen
-            font = pygame.font.SysFont("monospace", 20)
-            label = font.render("Generation: " + str(iter_cnt+1), 1, (255, 255, 255))
-            game_display.blit(label, (200, 10))
-            label = font.render("Max Fitness: " + str(self.best_child.fitness(self.target_location)), 1, (255, 255, 255))
-            game_display.blit(label, (200, 30))
-            label = font.render("Distance: " + str(self.best_child.location.dist(self.target_location)), 1, (255, 255, 255))
-            game_display.blit(label, (200, 50))
+            label = font.render("Generation: " + str(iter_cnt+1), 1, (0, 0, 0))
+            game_display.blit(label, (100, 12))
+            label = font.render("Max Fitness: " + str(self.best_child.fitness(self.target_location)), 1, (0, 0, 0))
+            game_display.blit(label, (100, 30))
+            label = font.render("Distance: " + str(self.best_child.location.dist(self.target_location)), 1, (0, 0, 0))
+            game_display.blit(label, (100, 50))
 
             # update the display
             pygame.display.update()
