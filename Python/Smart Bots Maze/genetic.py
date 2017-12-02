@@ -1,12 +1,17 @@
-from rocket import Rocket, Vector, Obstacle
+from rocket import Rocket, Vector
 import numpy as np
 import pygame
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
+red = (255,0,0)
+green = (0,255,0)
+blue = (0,0,255)
+bright_red = (255,128,0)
+bright_green = (0,255,128)
 
-FPS = 60
+FPS = 500
 
 
 class Genetic:
@@ -18,15 +23,11 @@ class Genetic:
         self.mutation_rate = mutation_rate
         self.population = []
         self.best_child = Rocket(FPS)
-        self.obstacles = []
+        self.obstacles = obstacles
 
         # initialize the rockets at random values
         for i in range(0, self.population_size):
             self.population.append(Rocket(FPS))
-
-        # create obstacle objects
-        for obs in obstacles:
-            self.obstacles.append(Obstacle(obs[0], obs[1], obs[2], obs[3]))
 
     # implementation of the genetic algorithm
     def _next_gen(self):
@@ -47,12 +48,14 @@ class Genetic:
             # create the mating pool using every member's fitness
             # the recombination will use roulette method which means every member
             # is added to the mating pool multiple times depending on its fitness value
+            print(fitness)
             for i in range(0, int(fitness)):
                 mating_pool.append(member)
 
         for i in range(0, self.population_size):
 
             # the recombination is done selecting to random members from the mating pool
+            print(mating_pool)
             first = np.random.random_integers(0, len(mating_pool) - 1)
             second = np.random.random_integers(0, len(mating_pool) - 1)
             child = mating_pool[first].crossover(mating_pool[second])
@@ -120,22 +123,23 @@ class Genetic:
 
                     # check member's collision with the obstacles
                     for obs in self.obstacles:
-                        if obs.do_collide(member):
+                        if obs[0] <= member.location.x <= obs[0]+obs[2] and obs[1] <= member.location.y <= obs[1]+obs[3]:
+                            member.is_alive = False
+                        elif member.location.x <= 0 or member.location.x >= 800 or member.location.y <= 0 or member.location.y >= 600 :
                             member.is_alive = False
 
+
                 # display the rockets
-                pygame.draw.circle(game_display, WHITE, member.location.tuple_int(20), 3)
+                pygame.draw.circle(game_display, WHITE, member.location.tuple_int(), 3)
 
             counter += 1
 
             # display the target position
-            pygame.draw.circle(game_display, RED, self.target_location.tuple_int(500), 3)
+            pygame.draw.circle(game_display, RED, self.target_location.tuple_int(), 3)
 
             # draw the obstacles
             for obs in self.obstacles:
-                rect = obs.tuple_int(reference_point.x)
-                pygame.draw.rect(game_display, WHITE, (rect[0],
-                                                       (rect[1][0] - rect[0][0], rect[1][1] - rect[0][1])))
+                pygame.draw.rect(game_display, WHITE, obs)
 
             # display iteration number to the screen
             font = pygame.font.SysFont("monospace", 20)
