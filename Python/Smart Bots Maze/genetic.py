@@ -123,7 +123,7 @@ class Genetic:
                     for obs in self.obstacles:
                         if obs[0] <= member.location.x <= obs[0]+obs[2] and obs[1] <= member.location.y <= obs[1]+obs[3]:
                             member.is_alive = False
-                        elif member.location.x <= 0 or member.location.x >= 800 or member.location.y <= 0 or member.location.y >= 600 :
+                        elif member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600 :
                             member.is_alive = False
 
 
