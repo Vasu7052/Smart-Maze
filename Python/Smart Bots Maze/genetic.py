@@ -1,6 +1,7 @@
 from rocket import Rocket, Vector
 import numpy as np
 import pygame
+import heapq
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -11,7 +12,7 @@ blue = (0,0,255)
 bright_red = (255,128,0)
 bright_green = (0,255,128)
 
-FPS = 500
+FPS = 60
 
 
 class Genetic:
@@ -33,40 +34,37 @@ class Genetic:
     def _next_gen(self):
 
         # define aux variables for genetic algirthm
-        mating_pool = []
+        fitness_list = []
         new_generation = []
 
         for member in self.population:
 
             # calculate the fitness for every member from the population
             fitness = (member.fitness(self.target_location)) * 1000
+            fitness_list.append((fitness,member))
 
-            # save the member with the best fitness
-            if self.best_child.fitness(self.target_location) * 1000 < fitness:
-                self.best_child = member
+        new_list = sorted(fitness_list, key=lambda rkt: rkt[0])
 
-            # create the mating pool using every member's fitness
-            # the recombination will use roulette method which means every member
-            # is added to the mating pool multiple times depending on its fitness value
-            
-            for i in range(0, int(fitness)+1):
-                mating_pool.append(member)
+        child1,child2 = new_list[len(new_list)-1][1].crossover(new_list[len(new_list)-2][1])
 
-        for i in range(0, self.population_size):
+        # the child will suffer a mutation according to the probability of the mutation rate
+        #child1.mutate(self.mutation_rate)
 
-            # the recombination is done selecting to random members from the mating pool
+        for member in self.population:
+            if ((member.fitness(self.target_location)) * 1000) == new_list[0][0] :
+                new_generation.append(child1)
+                print("appended////////////////////////////////////////////////////////")
+            elif ((member.fitness(self.target_location)) * 1000) == new_list[1][0] :
+                print("appended------------------------------------------------------")
+                new_generation.append(child2)
+            else :
+                print("appended")
+                new_generation.append(member)
 
-            first = np.random.random_integers(0, len(mating_pool) - 1)
-            second = np.random.random_integers(0, len(mating_pool) - 1)
-            child = mating_pool[first].crossover(mating_pool[second])
-
-            # the child will suffer a mutation according to the probability of the mutation rate
-            child.mutate(self.mutation_rate)
-
-            # the newer generation will represent the population for the next iteration
-            new_generation.append(child)
-
+        self.population = []
         self.population = new_generation
+
+
 
 
     def simulate_with_graphics(self, title="Rockets", width=800, height=600, iteratons=100):

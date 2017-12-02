@@ -74,7 +74,8 @@ class Rocket:
     def crossover(self, other):
 
         # a new child is created
-        child = Rocket(self.length)
+        child1 = Rocket(self.length)
+        child2 = Rocket(self.length)
 
         # generate a random midpoint
         midpoint = np.random.random_integers(1, other.length)
@@ -83,11 +84,13 @@ class Rocket:
 
             # do the recombination by taking force vectors from both elements
             if i < midpoint:
-                child.forces[i] = self.forces[i]
+                child1.forces[i] = other.forces[i]
+                child2.forces[i] = self.forces[i]
             else:
-                child.forces[i] = other.forces[i]
+                child1.forces[i] = self.forces[i]
+                child2.forces[i] = other.forces[i]
 
-        return child
+        return child1,child2
 
     # mutates the current force vector according to the current mutation rate
     def mutate(self, mutation_rate):
