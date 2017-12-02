@@ -6,6 +6,10 @@ The project is done using Python 3.6 with the following dependencies:
 - numpy: http://www.numpy.org/
 - pygame: http://www.pygame.org/download.shtml
 
+# Working
+
+You can see the working project [here](https://www.youtube.com/watch?v=7Va9Ivb2ExU)
+
 # Genetic Algorithm
 
 A genetic algorithm is a search heuristic that is inspired by Charles Darwin’s theory of natural evolution. This algorithm reflects the process of natural selection where the fittest individuals are selected for reproduction in order to produce offspring of the next generation.
