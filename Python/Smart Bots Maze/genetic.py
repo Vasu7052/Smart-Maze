@@ -12,12 +12,12 @@ blue = (0,0,255)
 bright_red = (255,128,0)
 bright_green = (0,255,128)
 
-FPS = 60
+FPS = 500
 
 
 class Genetic:
 
-    def __init__(self, loc_x, loc_y, population_size=50, mutation_rate=0.1, obstacles=[]):
+    def __init__(self, loc_x, loc_y, population_size=100, mutation_rate=0.1, obstacles=[]):
         # initialize all variables
         self.target_location = Vector(loc_x, loc_y)
         self.population_size = population_size
@@ -48,18 +48,18 @@ class Genetic:
         child1,child2 = new_list[len(new_list)-1][1].crossover(new_list[len(new_list)-2][1])
 
         # the child will suffer a mutation according to the probability of the mutation rate
-        #child1.mutate(self.mutation_rate)
+        child1.mutate(self.mutation_rate)
+        child2.mutate(self.mutation_rate)
 
         for member in self.population:
             if ((member.fitness(self.target_location)) * 1000) == new_list[0][0] :
                 new_generation.append(child1)
-                print("appended////////////////////////////////////////////////////////")
             elif ((member.fitness(self.target_location)) * 1000) == new_list[1][0] :
-                print("appended------------------------------------------------------")
                 new_generation.append(child2)
             else :
-                print("appended")
-                new_generation.append(member)
+                temp = Rocket(FPS)
+                temp.forces = member.forces
+                new_generation.append(temp)
 
         self.population = []
         self.population = new_generation
@@ -67,7 +67,7 @@ class Genetic:
 
 
 
-    def simulate_with_graphics(self, title="Rockets", width=800, height=600, iteratons=100):
+    def simulate_with_graphics(self, title="Rockets", width=800, height=600, iteratons=300):
 
         # initialize pygame
         pygame.init()
@@ -148,7 +148,7 @@ class Genetic:
             pygame.display.update()
 
             # sleep the mainloop for achieving the preset FPS value
-            clock.tick(FPS)
+            clock.tick(250)
 
         # print statistics for the best child when the main loop is finished
         self.print_stats()
