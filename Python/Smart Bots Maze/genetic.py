@@ -113,32 +113,34 @@ class Genetic:
                 # check if rocket did not collide before
                 if member.is_alive and not member.is_wall:
 
+                    # calculate the new position for every rocket
+                    member.apply_force_at(counter)
+
+                    # update the rocket's position
+                    member.update()
+
                     # check member's collision with the obstacles
                     for obs in self.obstacles:
                         if obs[0] <= member.location.x <= obs[0]+obs[2] and obs[1] <= member.location.y <= obs[1]+obs[3]:
                             member.is_wall = True
-                        elif member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600 :
-                            member.is_alive = False
-                        else:
-                            member.is_wall = False
 
+                    if member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600 :
+                            member.is_alive = False
+
+                if member.is_alive and member.is_wall :
                     # calculate the new position for every rocket
                     member.apply_force_at(counter)
-                    member.update()
-                elif member.is_alive and member.is_wall:
+
+                    # update the rocket's position
+                    member.wall_update()
+
                     # check member's collision with the obstacles
                     for obs in self.obstacles:
-                        if obs[0] <= member.location.x <= obs[0] + obs[2] and obs[1] <= member.location.y <= obs[1] + \
-                                obs[3]:
+                        if obs[0] <= member.location.x <= obs[0] + obs[2] and obs[1] <= member.location.y <= obs[1] + obs[3]:
                             member.is_wall = True
-                        elif member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600:
-                            member.is_alive = False
-                        else:
-                            member.is_wall = False
 
-                    # calculate the new position for every rocket
-                    member.apply_force_at(counter)
-                    member.wall_update()
+                    if member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600:
+                        member.is_alive = False
 
 
                 # display the rockets
