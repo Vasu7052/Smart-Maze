@@ -64,7 +64,7 @@ class Genetic:
         self.population = []
         self.population = new_generation
 
-
+        self.best_child = new_list[len(new_list)-1][1]
 
 
     def simulate_with_graphics(self, title="Rockets", width=800, height=600, iteratons=300):
@@ -141,14 +141,18 @@ class Genetic:
 
             # display iteration number to the screen
             font = pygame.font.SysFont("monospace", 20)
-            label = font.render("iteration: " + str(iter_cnt), 1, (255, 255, 255))
-            game_display.blit(label, (width/2, 10))
+            label = font.render("Generation: " + str(iter_cnt+1), 1, (255, 255, 255))
+            game_display.blit(label, (200, 10))
+            label = font.render("Max Fitness: " + str(self.best_child.fitness(self.target_location)), 1, (255, 255, 255))
+            game_display.blit(label, (200, 30))
+            label = font.render("Distance: " + str(self.best_child.location.dist(self.target_location)), 1, (255, 255, 255))
+            game_display.blit(label, (200, 50))
 
             # update the display
             pygame.display.update()
 
             # sleep the mainloop for achieving the preset FPS value
-            clock.tick(250)
+            clock.tick(60)
 
         # print statistics for the best child when the main loop is finished
         self.print_stats()
