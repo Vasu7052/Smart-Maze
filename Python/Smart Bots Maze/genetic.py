@@ -111,7 +111,7 @@ class Genetic:
             for member in self.population:
 
                 # check if rocket did not collide before
-                if member.is_alive and not member.is_wall:
+                if member.is_alive:
 
                     # calculate the new position for every rocket
                     member.apply_force_at(counter)
@@ -122,25 +122,10 @@ class Genetic:
                     # check member's collision with the obstacles
                     for obs in self.obstacles:
                         if obs[0] <= member.location.x <= obs[0]+obs[2] and obs[1] <= member.location.y <= obs[1]+obs[3]:
-                            member.is_wall = True
+                            member.is_alive = False
 
                     if member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600 :
                             member.is_alive = False
-
-                if member.is_alive and member.is_wall :
-                    # calculate the new position for every rocket
-                    member.apply_force_at(counter)
-
-                    # update the rocket's position
-                    member.wall_update()
-
-                    # check member's collision with the obstacles
-                    for obs in self.obstacles:
-                        if obs[0] <= member.location.x <= obs[0] + obs[2] and obs[1] <= member.location.y <= obs[1] + obs[3]:
-                            member.is_wall = True
-
-                    if member.location.x <= 10 or member.location.x >= 800 or member.location.y <= 10 or member.location.y >= 600:
-                        member.is_alive = False
 
 
                 # display the rockets
@@ -152,7 +137,7 @@ class Genetic:
             pygame.draw.circle(game_display, RED, self.target_location.tuple_int(), 25)
             font = pygame.font.SysFont("monospace", 20)
             label = font.render("Target", 1, (0, 0, 0))
-            game_display.blit(label, (67, 525))
+            game_display.blit(label, (67, 125))
 
             # draw the obstacles
             for obs in self.obstacles:
@@ -160,17 +145,17 @@ class Genetic:
 
             # display iteration number to the screen
             label = font.render("Generation: " + str(iter_cnt+1), 1, (0, 0, 0))
-            game_display.blit(label, (100, 12))
+            game_display.blit(label, (10, 512))
             label = font.render("Max Fitness: " + str(self.best_child.fitness(self.target_location)), 1, (0, 0, 0))
-            game_display.blit(label, (100, 30))
+            game_display.blit(label, (10, 540))
             label = font.render("Distance: " + str(self.best_child.location.dist(self.target_location)), 1, (0, 0, 0))
-            game_display.blit(label, (100, 50))
+            game_display.blit(label, (10, 570))
 
             # update the display
             pygame.display.update()
 
             # sleep the mainloop for achieving the preset FPS value
-            clock.tick(60)
+            clock.tick(FPS)
 
         # print statistics for the best child when the main loop is finished
         self.print_stats()
