@@ -30,20 +30,16 @@ class Genetic:
         self.best_child = Rocket(FPS)
         self.obstacles = obstacles
 
-        # initialize the rockets at random values
         for i in range(0, self.population_size):
             self.population.append(Rocket(FPS))
 
-    # implementation of the genetic algorithm
     def _next_gen(self):
 
-        # define aux variables for genetic algirthm
         fitness_list = []
         new_generation = []
 
         for member in self.population:
 
-            # calculate the fitness for every member from the population
             fitness = (member.fitness(self.target_location)) * 1000
             fitness_list.append((fitness,member))
 
@@ -51,7 +47,6 @@ class Genetic:
 
         child1,child2 = new_list[len(new_list)-1][1].crossover(new_list[len(new_list)-2][1])
 
-        # the child will suffer a mutation according to the probability of the mutation rate
         child1.mutate(self.mutation_rate)
         child2.mutate(self.mutation_rate)
 
@@ -73,43 +68,27 @@ class Genetic:
 
     def simulate_with_graphics(self):
 
-        # initialize pygame
         pygame.init()
         game_display = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption(self.title)
 
-        # get the clock module for handling FPS
         clock = pygame.time.Clock()
 
-        # set an exit flag
         game_exit = False
-
-        # set a counter for handling genetic algorithm steps at given moments
         counter = 0
-
-        # iteration counter
         iter_cnt = 0
 
-        # start the main loop
         while not game_exit and iter_cnt < self.iteratons:
 
-            # handle input events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     game_exit = True
 
-            # clear the playground
             game_display.fill(WHITE)
 
             if counter == FPS:
-
-                # reset the counter to 0
                 counter = 0
-
-                # increment iter
                 iter_cnt += 1
-
-                # compute the newer generation of the population
                 self._next_gen()
 
             for member in self.population:
