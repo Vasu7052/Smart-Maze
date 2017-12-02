@@ -25,7 +25,7 @@ The process begins with a set of individuals which is called a Population. Each 
 An individual is characterized by a set of parameters (variables) known as Genes. Genes are joined into a string to form a Chromosome (solution).
 In a genetic algorithm, the set of genes of an individual is represented using a string, in terms of an alphabet. Usually, binary values are used (string of 1s and 0s). We say that we encode the genes in a chromosome.
 
-Population, Chromosomes and Genes
+<img src="https://github.com/androfly/Smart-Maze/blob/master/Images/img1.png" alt="Genetic Algorithm" style="width:400px;height:200px;">
 ## Fitness Function
 The fitness function determines how fit an individual is (the ability of an individual to compete with other individuals). It gives a fitness score to each individual. The probability that an individual will be selected for reproduction is based on its fitness score.
 ## Selection
