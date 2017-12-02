@@ -66,7 +66,7 @@ class Rocket:
         # if a collision was detected with an obstacle, penalize the fitness value
         fitness_rate = 1.0
         if not self.is_alive:
-            fitness_rate = 0.0000000000000000001
+            fitness_rate = 0.000000000001
 
         return inv_dist_to_target * fitness_rate
 

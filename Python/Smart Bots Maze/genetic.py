@@ -48,14 +48,14 @@ class Genetic:
             # create the mating pool using every member's fitness
             # the recombination will use roulette method which means every member
             # is added to the mating pool multiple times depending on its fitness value
-            print(fitness)
-            for i in range(0, int(fitness)):
+            
+            for i in range(0, int(fitness)+1):
                 mating_pool.append(member)
 
         for i in range(0, self.population_size):
 
             # the recombination is done selecting to random members from the mating pool
-            print(mating_pool)
+
             first = np.random.random_integers(0, len(mating_pool) - 1)
             second = np.random.random_integers(0, len(mating_pool) - 1)
             child = mating_pool[first].crossover(mating_pool[second])
