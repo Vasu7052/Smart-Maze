@@ -36,10 +36,15 @@ Two pairs of individuals (parents) are selected based on their fitness scores. I
 Crossover is the most significant phase in a genetic algorithm. For each pair of parents to be mated, a crossover point is chosen at random from within the genes.
 For example, consider the crossover point to be 3 as shown below.
 <img src="https://github.com/androfly/Smart-Maze/blob/master/Images/img2.png" alt="Genetic Algorithm" ></img>
-**Offspring** are created by exchanging the genes of parents among themselves until the crossover point is reached.
+
+ **Offspring** are created by exchanging the genes of parents among themselves until the crossover point is reached.
+ 
 <img src="https://github.com/androfly/Smart-Maze/blob/master/Images/img3.png" alt="Genetic Algorithm" ></img>
+
 The new offspring are added to the population.
+
 <img src="https://github.com/androfly/Smart-Maze/blob/master/Images/img4.png" alt="Genetic Algorithm" ></img>
+
 ## Mutation
 In certain new offspring formed, some of their genes can be subjected to a mutation with a low random probability. This implies that some of the bits in the bit string can be flipped.
 <img src="https://github.com/androfly/Smart-Maze/blob/master/Images/img5.png" alt="Genetic Algorithm" ></img>
