@@ -47,8 +47,11 @@ The new offspring are added to the population.
 
 ## Mutation
 In certain new offspring formed, some of their genes can be subjected to a mutation with a low random probability. This implies that some of the bits in the bit string can be flipped.
+
 <img src="https://github.com/androfly/Smart-Maze/blob/master/Images/img5.png" alt="Genetic Algorithm" ></img>
+
 Mutation occurs to maintain diversity within the population and prevent premature convergence.
+
 ## Termination
 The algorithm terminates if the population has converged (does not produce offspring which are significantly different from the previous generation). Then it is said that the genetic algorithm has provided a set of solutions to our problem.
 ### Note
