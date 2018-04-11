@@ -8,7 +8,8 @@ The project is done using Python 3.6 with the following dependencies:
 
 # Working
 
-You can see the working project [here](https://www.youtube.com/watch?v=7Va9Ivb2ExU)
+You can see the working project [https://www.youtube.com/watch?v=7Va9Ivb2ExU](https://www.youtube.com/watch?v=7Va9Ivb2ExU)
+<iframe width="854" height="480" src="https://www.youtube.com/embed/7Va9Ivb2ExU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 # Genetic Algorithm
 
