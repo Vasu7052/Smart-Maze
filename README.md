@@ -9,6 +9,7 @@ The project is done using Python 3.6 with the following dependencies:
 # Working
 
 You can see the working project [https://www.youtube.com/watch?v=7Va9Ivb2ExU](https://www.youtube.com/watch?v=7Va9Ivb2ExU)
+<br>
 [![Project Video](https://img.youtube.com/vi/7Va9Ivb2ExU/0.jpg)](https://www.youtube.com/watch?v=7Va9Ivb2ExU)
 
 # Genetic Algorithm
